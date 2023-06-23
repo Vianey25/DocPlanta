@@ -1,0 +1,61 @@
+<center>
+<h1>Sucursal 1</h1>
+</center>
+
+<table class="table table-dark table-borderless">
+  
+  <tr>
+    <tr>
+     <td style="font-size:250%;">Temperatura</td>
+     <td id="temperatura" style="font-size:250%;">{{sensor2}}</td>
+     
+    <tr>
+
+    <tr>
+      <td style="font-size:250%;"> Humedad  </td>
+      <td id="humedad" style="font-size:250%;">{{sensor2}}</td>
+    <tr>
+  </tr>
+  
+</table>
+
+
+<center>
+  <h1>Sucursal 2</h1>
+</center>
+
+<table  class="table table-hover">
+  
+  <tr>
+    <tr>
+     <td style="font-size:250%;">Temperatura</td>
+     <td id="temperatura2" style="font-size:250%;">{{sensor2}}</td>
+     
+    <tr>
+
+    <tr>
+      <td style="font-size:250%;"> Humedad  </td>
+      <td id="humedad2" style="font-size:250%;">{{sensor2}}</td>
+    <tr>
+  </tr>
+  
+</table>
+
+<script>
+  window.setInterval(function(){
+
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://awi4-ba755-default-rtdb.firebaseio.com/sensores.json');
+    request.onload = () => {
+      const response = request.responseText;
+      console.log(response);
+      const json = JSON.parse(response);
+      document.getElementById('temperatura').innerHTML = json["sucursal1"].temperatura;
+      document.getElementById('humedad').innerHTML = json["sucursal1"].humedad;
+      document.getElementById('temperatura2').innerHTML = json["sucursal2"].temperatura;
+      document.getElementById('humedad2').innerHTML = json["sucursal2"].humedad;
+      
+    };
+    request.send();
+  },1000);
+</script>
