@@ -1,3 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Plantas{% endblock %}
+
+{% block customCSS %}
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/registro.css')}}">
+{% endblock %}
+
+{% block body %}
+
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
@@ -163,3 +174,4 @@
   </div>
 </body>
 </html>
+{% endblock %}
