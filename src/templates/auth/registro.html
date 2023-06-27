@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/registro.css')}}">
+{% endblock %}
+
+{% block body %}
+
+<form class="form-login">
+    <h1 class="h3 mb-3 fw-normal">Registro</h1>
+
+    <div class="form-floating">
+        <input type="usuario" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Usuario</label>
+    </div>
+
+    <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email</label>
+    </div>
+    <div class="form-floating mt-2">
+        <input type="password" class="form-control" name="password" placeholder="Password">
+        <label for="password">contraseña</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" style="background-color: #13CE66; color:#FFFFFF" type="submit">Registrar</button>
+</form>
+
+{% endblock %}
