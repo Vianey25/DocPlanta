@@ -24,7 +24,9 @@ def enfermedades():
 def temperatura_humedad():        
     return render_template('auth/temperatura-humedad.html')
 
-
+@app.route('/invernaderos')
+def invernaderos():        
+    return render_template('invernaderos.html')
 
 if __name__=='__main__':
     app.config.from_object(config['development'])
