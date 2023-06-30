@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Registro{% endblock %}
+{% block title %}Mis_plantas{% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/plantas.css')}}">
-
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
@@ -20,23 +18,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("registerBtn").addEventListener("click", function() {
       document.getElementById("popup").style.display = "block";
     });
-
     document.getElementsByClassName("close")[0].addEventListener("click", function() {
       document.getElementById("popup").style.display = "none";
     });
-
     document.getElementById("registrationForm").addEventListener("submit", function(event) {
       event.preventDefault(); 
-
     });
   });
 </script>
 {% endblock %}
-
 {% block body %}
 <main class="d-flex flex-nowrap" style="width: 100vw; height: 100vh;">
-  <h1 class="visually-hidden">Sidebars examples</h1>
-
   <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%; background-color: #f8f9fa;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
@@ -89,16 +81,12 @@ document.addEventListener("DOMContentLoaded", function() {
         <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
-
   </div>
 </head>
 <body>
     <br><br><br>
-  
-
   <div class="card">
     <div class="card-body">
-
       <button id="registerBtn" class="btn custom-btn" >Agregar nueva planta</button>
         <table class="table table-striped" id="">
             <thead>
@@ -123,21 +111,15 @@ document.addEventListener("DOMContentLoaded", function() {
                       </form>
                       <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
 
-
-                              
                             </form>
                         </div>
                     </div>
-                    
                       </div>
-
                       </div>
-
                   </td>
               </tr>
             </tbody>
         </table>
-
   <div id="popup" class="popup">
     <div class="popup-content">
       
@@ -147,12 +129,10 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <div class="modal-body">
           <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="">
-          
             <div class="form-group">
               <font for="name" color="black">Nombre de la planta :</font>
               <input type="text" class="form-control" name="nameplanta" value="">
             </div>
-      
             <div class="form-group">
               <font for="name" color="black">Descripción de la planta :</font>
               <input type="text" class="form-control" name="descripcion" value="">
@@ -163,16 +143,12 @@ document.addEventListener("DOMContentLoaded", function() {
               <label class="input-group-text" for="inputGroupFile02">Upload</label>
             </div>
           <br>
-            <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>
-          
+            <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>    
         </form>
     </div>
 </div>
-
   </div>
 </body>
-
 {% endblock %}
-
 </main>
 
