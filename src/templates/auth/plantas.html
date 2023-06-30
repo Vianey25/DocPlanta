@@ -4,6 +4,33 @@
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/plantas.css')}}">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("registerBtn").addEventListener("click", function() {
+      document.getElementById("popup").style.display = "block";
+    });
+
+    document.getElementsByClassName("close")[0].addEventListener("click", function() {
+      document.getElementById("popup").style.display = "none";
+    });
+
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+
+    });
+  });
+</script>
 {% endblock %}
 
 {% block body %}
@@ -62,17 +89,17 @@
         <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
+
   </div>
-</main>
-
-
 </head>
 <body>
     <br><br><br>
-  <button id="registerBtn" class="btn custom-btn" >Agregar nueva planta</button>
+  
 
   <div class="card">
     <div class="card-body">
+
+      <button id="registerBtn" class="btn custom-btn" >Agregar nueva planta</button>
         <table class="table table-striped" id="">
             <thead>
                 <tr>
@@ -146,3 +173,6 @@
 </body>
 
 {% endblock %}
+
+</main>
+
