@@ -1,88 +1,99 @@
 {% extends 'base.html' %}
 
-{% block title %}Mis_plantas{% endblock %}
 
-{% block customCSS %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/plantas.css')}}">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
-<script>
+<!DOCTYPE html>
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("registerBtn").addEventListener("click", function() {
-      document.getElementById("popup").style.display = "block";
-    });
-    document.getElementsByClassName("close")[0].addEventListener("click", function() {
-      document.getElementById("popup").style.display = "none";
-    });
-    document.getElementById("registrationForm").addEventListener("submit", function(event) {
-      event.preventDefault(); 
-    });
-  });
-</script>
-{% endblock %}
-{% block body %}
+{% block content %}
 <main class="d-flex flex-nowrap" style="width: 100vw; height: 100vh;">
   <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%; background-color: #f8f9fa;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      <span class="fs-4">Sidebar</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-          Orders
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-          Products
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-          Customers
-        </a>
-      </li>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
-    </div>
-  </div>
+
+<html>
+<head>
+  <title>Mis plantas</title>
+  <style>
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .popup-content {
+      background-color: #fefefe;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .custom-btn {
+        background-color: #4CAF50;
+        color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+   
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("registerBtn").addEventListener("click", function() {
+        document.getElementById("popup").style.display = "block";
+      });
+
+      document.getElementsByClassName("close")[0].addEventListener("click", function() {
+        document.getElementById("popup").style.display = "none";
+      });
+
+      document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+
+      });
+    });
+  </script>
 </head>
+
 <body>
     <br><br><br>
   <div class="card">
@@ -111,15 +122,21 @@ document.addEventListener("DOMContentLoaded", function() {
                       </form>
                       <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
 
+
+                              
                             </form>
                         </div>
                     </div>
+                    
                       </div>
+
                       </div>
+
                   </td>
               </tr>
             </tbody>
         </table>
+
   <div id="popup" class="popup">
     <div class="popup-content">
       
@@ -129,10 +146,12 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <div class="modal-body">
           <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="">
+         
             <div class="form-group">
               <font for="name" color="black">Nombre de la planta :</font>
               <input type="text" class="form-control" name="nameplanta" value="">
             </div>
+      
             <div class="form-group">
               <font for="name" color="black">Descripción de la planta :</font>
               <input type="text" class="form-control" name="descripcion" value="">
@@ -143,12 +162,15 @@ document.addEventListener("DOMContentLoaded", function() {
               <label class="input-group-text" for="inputGroupFile02">Upload</label>
             </div>
           <br>
-            <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>    
+            <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>
+          
         </form>
     </div>
 </div>
   </div>
 </body>
-{% endblock %}
-</main>
+</html>
 
+{% endblock %}
+
+{% block footer %}{% endblock %}
