@@ -212,40 +212,6 @@
     </div>
 </div>
   </div>
-
-  <div>
-
-    <center>
-        <h1>Temperatura y humedad</h1>
-    </center>
-    
-    <table class="table table-dark table-borderless">
-        <tr>
-            <td style="font-size:250%;">Temperatura</td>
-            <td id="temperature" style="font-size:250%;"></td>
-        </tr>
-        <tr>
-            <td style="font-size:250%;">Humedad</td>
-            <td id="humidity" style="font-size:250%;"></td>
-        </tr>
-    </table>
-    
-    
-    <script>
-        window.setInterval(function(){
-            var request = new XMLHttpRequest();
-            request.open('GET', 'https://awi4-ba755-default-rtdb.firebaseio.com/sensores/sucursal1.json');
-            request.onload = () => {
-                const response = request.responseText;
-                console.log(response);
-                const json = JSON.parse(response);
-                document.getElementById('temperature').innerHTML = json.temperature;
-                document.getElementById('humidity').innerHTML = json.humidity;
-            };
-            request.send();
-        }, 1000);
-    </script>
-  </div>
 </body>
 </html>
 </main>

@@ -21,6 +21,10 @@ def login():
     else:
         return render_template('auth/iniciar.html')
 
+@app.route('/home')
+def register1():
+    return render_template('auth/home.html')
+
 
 @app.route('/registro')
 def register():
@@ -37,8 +41,16 @@ def enfermedades():
     return render_template('auth/enfermedades.html')
 
 
+@app.route('/invernadero')
+def invernadero():
+    return render_template('auth/invernadero.html')
+
+@app.route('/temperatura-humedad')
+def temperatura_humedad():
+    return render_template('auth/temperatura_humedad.html')
+
 @app.route('/sensores')
-def enfermedades():
+def sensores():
     return render_template('auth/sensores.html')
 
 
