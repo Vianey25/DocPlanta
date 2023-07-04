@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
@@ -9,6 +10,9 @@
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
 <!DOCTYPE html>
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 <html>
 <head>
   <title>Mis Enfermedades</title>
@@ -88,10 +92,11 @@
 </head>
 <body>
     <br><br><br>
-  <button id="registerBtn" class="btn custom-btn" >Agregar nueva enfermedad</button>
-
+ 
   <div class="card">
     <div class="card-body">
+      <button id="registerBtn" class="btn custom-btn" >Agregar nueva enfermedad</button>
+
         <table class="table table-striped" id="">
             <thead>
                 <tr>
@@ -127,6 +132,52 @@
 
                   </td>
               </tr>
+              <tr>
+                <td>...</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <form action="" method="post">
+                        <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
+                        </button>
+                    </form>
+                    <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
+                             
+                          </form>
+                              </div>
+                          </div>
+                          
+                          </div>
+
+                          </div>
+
+                </td>
+            </tr>
+            <tr>
+              <td>...</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                  <form action="" method="post">
+                      <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
+                      </button>
+                  </form>
+                  <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
+                           
+                        </form>
+                            </div>
+                        </div>
+                        
+                        </div>
+
+                        </div>
+
+              </td>
+          </tr>
             </tbody>
         </table>
 
@@ -174,4 +225,8 @@
   </div>
 </body>
 </html>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
 

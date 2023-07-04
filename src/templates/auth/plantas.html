@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 
 {% block content %}
-
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 <html>
 <head>
   <title>Mis plantas</title>
@@ -131,7 +131,58 @@
                       </div>
 
                   </td>
+                  
               </tr>
+              <tr>
+                <td>.</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <form action="" method="post">
+                        <button type="submit" onclick="return confirm('¿Desea borrar la Planta?');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
+                        </button>
+                    </form>
+                    <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
+
+
+                            
+                          </form>
+                      </div>
+                  </div>
+                  
+                    </div>
+
+                    </div>
+
+                </td>
+                
+            </tr>
+            <tr>
+              <td>.</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                  <form action="" method="post">
+                      <button type="submit" onclick="return confirm('¿Desea borrar la Planta?');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
+                      </button>
+                  </form>
+                  <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
+
+
+                          
+                        </form>
+                    </div>
+                </div>
+                
+                  </div>
+
+                  </div>
+
+              </td>
+              
+          </tr>
             </tbody>
         </table>
 
@@ -167,6 +218,9 @@
 </div>
   </div>
 </body>
+</div>
+</main>
+
 </html>
 
 {% endblock %}
