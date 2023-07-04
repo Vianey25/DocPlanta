@@ -12,6 +12,10 @@ def index():
 def register():        
     return render_template('auth/registro.html')
 
+@app.route('/home')
+def home():        
+    return render_template('auth/home.html')
+
 @app.route('/plantas')
 def plantas():        
     return render_template('auth/plantas.html')
@@ -22,7 +26,7 @@ def enfermedades():
 
 @app.route('/temperatura-humedad')
 def temperatura_humedad():        
-    return render_template('auth/temperatura-humedad.html')
+    return render_template('auth/temperatura_humedad.html')
 
 @app.route('/invernaderos')
 def invernaderos():        
