@@ -1,40 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <title>Login</title>
-        <link rel="stylesheet" href="{{url_for('static', filename='css/iniciar.css')}}">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+{% extends 'base_inicio.html' %}
 
-   
-    </head>
+{% block customCSS %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/iniciar.css')}}">
+{% endblock %}
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    
+{% block content %}
 
-
-<form class="form-login" action="/login" method="post">
-    <center>
-    <h1 class="h3 mb-3 fw-normal">Inicio</h1>
-    </center>
-    <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" name="email"  placeholder="name@example.com">
-        <label for="floatingInput">Email</label>
+<div class="container">
+    <div class="mt-5">
+        <h1>Inicio</h1>
     </div>
-    <div class="form-floating mt-2">
-        <input type="password" class="form-control" name="password" placeholder="Password">
-        <label for="password">contraseña</label>
+    <div class="mt-3">
+        <img src="{{url_for('static', filename='img/docplant.png')}}" style="height: 200px;">
     </div>
+    <div class="mt-2">
+        <h3>"Docplanta te ayuda a la detección rápida y prevención de enfermedades de las plantas."</h3>
+    </div>
+    <div class="mt-1">
+        <form class="form-login" action="/login" method="post">
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+                <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating mt-2">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                <label for="password">contraseña</label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" style="background-color: #13CE66; color:#FFFFFF" type="submit">Iniciar</button>
+            <div class="mt-4">
+            <a href="/registro">Registrarse</a>
+          </div>
+        </form>
+    </div>
+</div>
 
-    <button class="w-100 btn btn-lg btn-primary" style="background-color: #13CE66; color:#FFFFFF" type="submit">Iniciar</button>
-</form>
-
-
-
-
-
-
-
+{% endblock %}
 

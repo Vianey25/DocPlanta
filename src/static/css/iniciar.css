@@ -13,7 +13,9 @@ body {
 
 footer {
   display: flex;
-  align-items:flex-end
+  align-items:flex-end;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .form-login {
@@ -39,3 +41,10 @@ footer {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.form-login input[type="usuario"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
