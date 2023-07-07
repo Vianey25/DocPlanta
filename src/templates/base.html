@@ -14,7 +14,10 @@
   {% block customCSS %}
   <style>
     .navbar {
-      background-color: #4FDE3C !important;
+      background-color: #4CAF50 !important;
+    }
+    .navbar-dark .navbar-brand {
+      color: white;
     }
     .sidebar {
       position: fixed;
@@ -38,7 +41,9 @@
 </head>
 <body>
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Docplanta</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="home">
+      Docplanta
+    </a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -54,6 +59,10 @@
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
+
+            <li class="nav-item">
+              <img src="{{url_for('static', filename='img/avatar-de-usuario.png')}}" alt="Profile Photo" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; ">
+            </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="home">
                 <span data-feather="home"></span>
@@ -85,7 +94,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="cursos">
                 <span data-feather="book"></span>
                 Cursos
               </a>
@@ -95,9 +104,7 @@
       </nav>
 
       <main class="main-content col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-        </div>
+
         {% block content %}
         {% endblock %}
       </main>
@@ -112,7 +119,3 @@
   </script>
 </body>
 </html>
-
-<footer>
-  <div class="container-fluid">
-      <divI apologize for the oversight. To set the green color to #4FDE3C, make the menu text white, add a little space on the left side, and set the background to a super light gray, you can modify the CSS styles in the code. Here's the updated version of the code with these changes:></divI>

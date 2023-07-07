@@ -12,7 +12,10 @@
 <!DOCTYPE html>
 
 {% block content %}
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+    <h1 class="h2">Enfermedades</h1>
+  </div>
 <html>
 <head>
   <title>Mis Enfermedades</title>
@@ -91,11 +94,12 @@
   </script>
 </head>
 <body>
-    <br><br><br>
- 
+  <br><br>
   <div class="card">
     <div class="card-body">
-      <button id="registerBtn" class="btn custom-btn" >Agregar nueva enfermedad</button>
+      <button id="registerBtn" class="btn custom-btn" >
+        <span data-feather="plus"></span>
+        Agregar nueva enfermedad</button>
 
         <table class="table table-striped" id="">
             <thead>
@@ -117,10 +121,10 @@
                   <td></td>
                   <td>
                       <form action="" method="post">
-                          <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
+                          <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> <span data-feather="trash-2"> </span>De baja
                           </button>
                       </form>
-                      <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
+                      <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"><span data-feather="edit-3"></span> Actualizar</button>
                                
                             </form>
                                 </div>
@@ -132,52 +136,7 @@
 
                   </td>
               </tr>
-              <tr>
-                <td>...</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <form action="" method="post">
-                        <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
-                        </button>
-                    </form>
-                    <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
-                             
-                          </form>
-                              </div>
-                          </div>
-                          
-                          </div>
-
-                          </div>
-
-                </td>
-            </tr>
-            <tr>
-              <td>...</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                  <form action="" method="post">
-                      <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
-                      </button>
-                  </form>
-                  <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>
-                           
-                        </form>
-                            </div>
-                        </div>
-                        
-                        </div>
-
-                        </div>
-
-              </td>
-          </tr>
+          
             </tbody>
         </table>
 

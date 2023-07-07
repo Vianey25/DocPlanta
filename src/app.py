@@ -40,7 +40,6 @@ def plantas():
 def enfermedades():
     return render_template('auth/enfermedades.html')
 
-
 @app.route('/invernadero')
 def invernadero():
     return render_template('auth/invernadero.html')
@@ -53,7 +52,9 @@ def temperatura_humedad():
 def sensores():
     return render_template('auth/sensores.html')
 
-
+@app.route('/cursos')
+def cursos():
+    return render_template('auth/cursos.html')
 
 if __name__ == '__main__':
     app.config.from_object(config['development'])
