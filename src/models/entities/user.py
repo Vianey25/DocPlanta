@@ -1,4 +1,4 @@
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash  
 
 class User():
     def __init__(self, id, email, password):
@@ -9,6 +9,8 @@ class User():
     @classmethod
     def check_password_hash(self, hashed_password, password):
         return check_password_hash(hashed_password, password)
+    
+
 
 
 
