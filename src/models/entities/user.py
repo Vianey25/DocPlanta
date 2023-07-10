@@ -7,7 +7,7 @@ class User():
        self.password = password
     
     @classmethod
-    def check_password_hash(self, hashed_password, password):
+    def check_password(self, hashed_password, password):
         return check_password_hash(hashed_password, password)
     
 

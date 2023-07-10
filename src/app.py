@@ -23,7 +23,7 @@ def login():
         logged_user = ModelUser.login(db,email)
         if logged_user != None :
             if logged_user.password:
-                return redirect(url_for('home'))
+                return render_template('auth/home.html')
             else:
                 flash("contraseña no valida")
         else:
