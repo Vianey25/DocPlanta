@@ -37,9 +37,17 @@ def register1():
     return render_template('auth/home.html')
 
 
-@app.route('/registro')
+@app.route('/registro', methods=['POST'])
 def register():
-    return render_template('auth/registro.html')
+    if request.method == 'POST':
+        usuario = request.form['usuario']
+        email = request.form['email']
+        password = request.form['password']
+        cur = db.connection.cursor()
+        cur.excecute('INSERT INTO registro (usuario,email,password) VALUES (%s,%s,%s)',(usuario,email,password))
+        db.connection.commit()
+        flash("añadido")
+        return render_template('auth/registro.html')
 
 
 @app.route('/plantas')
