@@ -16,7 +16,7 @@ def index():
     return redirect(url_for('login'))
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = User(0,request.form['email'],request.form['password'])
@@ -38,17 +38,18 @@ def register1():
 
 
 
-@app.route('/registro', methods=['GET','POST'])
+
+@app.route('/registro', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        usuario = request.form['usuario']
         email = request.form['email']
         password = request.form['password']
         cur = db.connection.cursor()
-        cur.excecute('INSERT INTO registro (usuario,email,password) VALUES (%s,%s,%s)',(usuario,email,password))
+        cur.execute('INSERT INTO user (email, password) VALUES (%s, %s)', (email, password))
         db.connection.commit()
         flash("añadido")
-        return redirect(url_for('registro.html'))
+        return redirect(url_for('register'))
+    return render_template('auth/registro.html')
 
 
 @app.route('/plantas')
