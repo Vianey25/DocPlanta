@@ -25,7 +25,7 @@ def login():
             if logged_user.password:
                 return render_template('auth/home.html')
             else:
-                flash("contraseña no valida")
+                flash("contraseña no valida --")
         else:
             flash("usuario no encontrado")
         return render_template('auth/iniciar.html')
