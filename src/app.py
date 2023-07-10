@@ -1,6 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify,flash
 from flask_mysqldb import MySQL
 from config import config
+
+from models.modeluser import ModelUser
+
+from models.entities.user import User
 
 app = Flask(__name__)
 
@@ -15,8 +19,15 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        print(request.form['email'])
-        print(request.form['password'])
+        email = User(0,request.form['email'],request.form['password'])
+        logged_user = ModelUser.login(db,email)
+        if logged_user != None :
+            if logged_user.password:
+                return redirect(url_for('home'))
+            else:
+                flash("contraseña no valida")
+        else:
+            flash("usuario no encontrado")
         return render_template('auth/iniciar.html')
     else:
         return render_template('auth/iniciar.html')
