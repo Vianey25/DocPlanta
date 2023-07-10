@@ -38,7 +38,7 @@ def register1():
 
 
 
-@app.route('/registro', methods=['POST'])
+@app.route('/registro', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
         usuario = request.form['usuario']
