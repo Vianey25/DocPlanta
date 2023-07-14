@@ -17,7 +17,18 @@
         <h3>"Docplanta te ayuda a la detección rápida y prevención de enfermedades de las plantas."</h3>
     </div>
     <div class="mt-1">
-        <form class="form-login" action="/login" method="post">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <br/>
+        {% for message in messages %}
+           <div class="alert alert-primary alert-dimissible" role = "alert">
+            <strong>{{message}}</strong>
+            <button type = "button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+           </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form class="form-login" action="/acceso-login" method="post">
             <div class="form-floating">
                 <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
                 <label for="floatingInput">Email</label>

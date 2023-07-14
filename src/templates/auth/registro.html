@@ -16,7 +16,19 @@
     <div class="mt-3">
         <img src="{{url_for('static', filename='img/docplant.png')}}" style="height: 200px;">
     </div>
-<form class="form-login" action="/registro" method="post">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br/>
+    {% for message in messages %}
+       <div class="alert alert-primary alert-dimissible" role = "alert">
+        <strong>{{message}}</strong>
+        <button type = "button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+       </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+<form class="form-login" action="/accion-registro" method="post">
     
 
     <div class="form-floating">
@@ -31,7 +43,7 @@
     <button class="w-100 btn btn-lg btn-primary" style="background-color: #13CE66; color:#FFFFFF" type="submit">Registrar</button>
 
     <div class="form-floating mt-4">
-    <a href="/login">iniciar</a>
+    <a href="/">iniciar</a>
     </div>
 </form>
 
