@@ -1,5 +1,7 @@
 class Config():
     SECRET_KEY = 'docplanta'
+    
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
