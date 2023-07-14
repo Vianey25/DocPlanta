@@ -19,6 +19,7 @@ def login_required(f):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    session.clear()
     return render_template('auth/iniciar.html')
 
 @app.route('/acceso-login', methods=['GET', 'POST'])
