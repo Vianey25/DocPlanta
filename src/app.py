@@ -4,19 +4,18 @@ from flask_mail import Mail, Message
 import random
 from flask_mysqldb import MySQL
 from config import config
-
-from config import Config
+import bcrypt
 
 app = Flask(__name__)
 db = MySQL(app)
 
-
-MAIL_SERVER = 'smtp.gmail.com'
-MAIL_PORT = 587
-MAIL_USE_TLS = True
-MAIL_USERNAME = 'your-gmail-username'
-MAIL_PASSWORD = 'your-gmail-password'
-MAIL_DEFAULT_SENDER = 'your-gmail-username@gmail.com'
+app.config["MAIL_SERVER"] = 'smtp.gmail.com'
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USERNAME"] = '1720110004@utectulancingo.edu.mx'
+app.config["MAIL_PASSWORD"] = 'Leon@2701'
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
 mail = Mail(app)
 
 # Decorator function to check login status
@@ -44,10 +43,10 @@ def login():
         email = request.form['email']
         password = request.form['password']
         cur = db.connection.cursor()
-        cur.execute('SELECT * FROM user WHERE email = %s AND password = %s', (email, password))
+        cur.execute('SELECT * FROM user WHERE email = %s', (email,))
         account = cur.fetchone()
 
-        if account:
+        if account and bcrypt.checkpw(password.encode('utf-8'), account[2].encode('utf-8')):
             session['logeado'] = True
             session['id'] = account[0]
             return render_template('auth/home.html')
@@ -69,8 +68,9 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         cur = db.connection.cursor()
-        cur.execute('INSERT INTO user (email, password) VALUES (%s, %s)', (email, password))
+        cur.execute('INSERT INTO user (email, password) VALUES (%s, %s)', (email, hashed_password))
         db.connection.commit()
         flash("El usuario ha sido registrado")
         return render_template('auth/registro.html')
@@ -126,9 +126,10 @@ def change_password():
     if request.method == 'POST' and 'password' in request.form:
         email = session['reset_email']
         password = request.form['password']
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
         cur = db.connection.cursor()
-        cur.execute('UPDATE user SET password = %s WHERE email = %s', (password, email))
+        cur.execute('UPDATE user SET password = %s WHERE email = %s', (hashed_password, email))
         db.connection.commit()
 
         flash('Password reset successful. You can now log in with your new password.', 'success')
