@@ -22,6 +22,17 @@
      <p>Ingrese el codigo OTP  que se envio a la direcion de correo </p>
     </div>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br/>
+    {% for message in messages %}
+       <div class="alert alert-primary alert-dimissible" role = "alert">
+        <strong>{{message}}</strong>
+        <button type = "button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+       </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
     <form method="POST" action="/verify-otp">
         <label for="otp">Ingresa el OTP:</label>

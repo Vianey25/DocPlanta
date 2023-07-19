@@ -19,7 +19,7 @@ app.config["MAIL_USE_SSL"] = True
 app.config["MAIL_DEFAULT_SENDER"] = ("Jonathan Granillo Robledo", "1720110004@utectulancingo.edu.mx") 
 mail = Mail(app)
 
-# Decorator function to check login status
+# Función de decorador para verificar el estado de inicio de sesión
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -29,7 +29,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# Function to generate a random OTP
+# Función para generar una OTP aleatoria
 def generate_otp():
     return str(random.randint(100000, 999999))
 
@@ -56,7 +56,7 @@ def login():
             return render_template('auth/iniciar.html')
 
 @app.route('/home')
-@login_required  # Apply login_required decorator to the route
+@login_required  # Aplicar el decorador login_required a la ruta
 def home():
     return render_template('auth/home.html')
 
@@ -93,7 +93,7 @@ def reset_password():
             msg.body = f'Your OTP is: {otp}'
             mail.send(msg)
 
-            flash('An email with OTP has been sent to your email address.', 'info')
+            flash('Se ha enviado un correo electrónico con OTP a su dirección de correo electrónico.', 'info')
             return redirect(url_for('verify_otp'))
         else:
             flash('Invalid email address', 'error')
@@ -110,11 +110,11 @@ def verify_otp():
         otp = request.form['otp']
 
         if otp == session['reset_otp']:
-            # OTP is correct, allow the user to reset the password
-            session.pop('reset_otp', None)  # Remove the OTP from the session
+            # OTP es correcto, permita que el usuario restablezca la contraseña
+            session.pop('reset_otp', None)  # Eliminar la OTP de la sesión
             return redirect(url_for('change_password'))
         else:
-            flash('Invalid OTP', 'error')
+            flash('OTP Invalido', 'error')
 
     return render_template('auth/verify_otp.html')
 
@@ -132,15 +132,14 @@ def change_password():
         cur = db.connection.cursor()
         cur.execute('UPDATE user SET password = %s WHERE email = %s', (hashed_password, email))
         db.connection.commit()
-
-        flash('Password reset successful. You can now log in with your new password.', 'success')
+        flash('Restablecimiento de contraseña exitoso. Ahora puede iniciar sesión con su nueva contraseña.', 'success')
         session.pop('reset_email', None)
 
         return redirect(url_for('index'))
 
     return render_template('auth/change_password.html')
 
-# Apply login_required decorator to the following routes
+# Aplique el decorador login_required a las siguientes rutas
 @app.route('/plantas')
 @login_required
 def plantas():
