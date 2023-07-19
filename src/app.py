@@ -16,6 +16,7 @@ app.config["MAIL_USERNAME"] = '1720110004@utectulancingo.edu.mx'
 app.config["MAIL_PASSWORD"] = 'Leon@2701'
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_DEFAULT_SENDER"] = ("Jonathan Granillo Robledo", "1720110004@utectulancingo.edu.mx") 
 mail = Mail(app)
 
 # Decorator function to check login status
