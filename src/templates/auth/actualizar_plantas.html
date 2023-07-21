@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+{% block content %}
+<style>
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .custom-btn {
+      background-color: #4CAF50;
+      color: #fff;
+  }
+
+
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+<main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+    <h1 class="h2">Actualización de Planta</h1>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        <form action="/plantas/update/{{ plant_data[0] }}" method="post">
+            <div class="form-group">
+                <center>
+                    <label for="nombre_planta">Nombre planta:</label>
+                    <input type="text" name="nombre_planta" value="{{ plant_data[1] }}">
+                </center>
+            </div>
+            <br>
+            <div class="form-group">
+                <center>
+                    <label for="descripcion_planta">Descripción planta :</label>
+                    <input type="text" name="descripcion_planta" value="{{ plant_data[2] }}">
+                </center>
+            </div>
+            <br>
+            <center>
+                <button type="submit" class="btn custom-btn">Actualizar</button>
+            </center>
+        </form>
+    </div>
+</main>
+{% endblock %}
+
+

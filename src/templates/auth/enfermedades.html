@@ -17,6 +17,13 @@
     <h1 class="h2">Enfermedades</h1>
   </div>
 <html>
+
+  <div class="custom-btn-container">
+    <a href="/reporte_enfer" class="btn btn-secondary" aria-hidden="true">
+      <span data-feather="file"></span> Generar reporte
+    </a>
+  </div>
+  <br>
 <head>
   <title>Mis Enfermedades</title>
   <style>
@@ -75,6 +82,12 @@
       color: white;
       cursor: pointer;
     }
+    .custom-btn-container {
+    position: absolute;
+    top: 40;
+    left: 80;
+    padding: 10px; /* Optional: Add some padding to adjust the position */
+  }
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -108,72 +121,68 @@
                     <th>Nombre de la enfermedad</th>
                     <th>Planta</th>
                     <th>Descripción</th>
-                    <th>Imagen</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
+              {% for enfer in enfer_data %}
               <tr>
-                  <td>...</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{ enfer[0] }}</td>
+                  <td>{{ enfer[1] }}</td>
+                  <td>{{ enfer[2] }}</td>
+                  <td>{{ enfer[3] }}</td>
                   <td>
-                      <form action="" method="post">
-                          <button type="submit" onclick="return confirm('¿Desea borrar la enfermedad');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> <span data-feather="trash-2"> </span>De baja
-                          </button>
-                      </form>
-                      <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"><span data-feather="edit-3"></span> Actualizar</button>
-                               
+                    <form action="/enfermedades/delete/{{ enfer[0] }}" method="post" onsubmit="return confirm('Deseas dar de baja esta planta?');">
+                      <button type="submit" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true">
+                        <span data-feather="trash-2"></span> Dar de baja
+                      </button>
+                    </form>
+                    <a href="/enfermedades/update/{{ enfer[0] }}" class="btn btn-primary" aria-hidden="true">
+                      <span data-feather="edit-3"></span> Actualizar
+                    </a>
                             </form>
                                 </div>
                             </div>
-                            
                             </div>
-
                             </div>
 
                   </td>
+                  {% endfor %}
               </tr>
           
             </tbody>
         </table>
 
+
   <div id="popup" class="popup">
     <div class="popup-content">
       
         <div class="modal-header">
+          <h4 class="modal-title text-center" id="exampleModalLabel">Registro de la enfermedad</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title text-center" id="exampleModalLabel">Registro de la enfermedad</h4>
+            
         </div>
         <div class="modal-body">
-          <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="">
+          <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="enfermedades">
          
             <div class="form-group">
                 <font for="name" color="black">Nombre de la Enfermedad :</font>
-                <input type="text" class="form-control" name="nameplanta" value="">
+                <input type="text" class="form-control" name="nombre_enfermedad" value="">
               </div>
               <div class="form-group">
-                  <label for="exampleFormControlSelect1">Planta</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                  </select>
-                </div>
-
+                <label for="exampleFormControlSelect1">Planta</label>
+                <select class="form-control" name="id">
+                    <option value="">Selecciona la planta</option>
+                    {% for plant in plants_data %}
+                        <option value="{{ plant[0] }}">{{ plant[1] }}</option>
+                    {% endfor %}
+                </select>
+              </div>
               <div class="form-group">
                 <font for="name" color="black">Descripción de la enfermedad :</font>
-                <input type="text" class="form-control" name="descripcion" value="">
+                <input type="text" class="form-control" name="descripcion_enfermedad" value="">
               </div>
         
-              <div class="input-group mb-3">
-                <input type="image" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-              </div>
             <br>
               <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>
             
@@ -181,11 +190,14 @@
     </div>
 </div>
 </div>
+
 </body>
+
+
 </html>
 </main>
-
 {% endblock %}
+
 
 {% block footer %}{% endblock %}
 

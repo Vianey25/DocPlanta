@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
@@ -10,7 +9,8 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
-<!DOCTYPE html>
+
+
 
 {% block content %}
 <main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
@@ -33,6 +33,7 @@
       background-color: rgba(0, 0, 0, 0.4);
     }
 
+
     .popup-content {
       background-color: #fefefe;
       margin: 10% auto;
@@ -41,6 +42,7 @@
       width: 50%;
     }
 
+
     .close {
       color: #aaa;
       float: right;
@@ -48,6 +50,7 @@
       font-weight: bold;
       cursor: pointer;
     }
+
 
     .close:hover,
     .close:focus {
@@ -60,9 +63,11 @@
         color: #fff;
     }
 
+
     h2 {
       text-align: center;
     }
+
 
     label {
       display: block;
@@ -80,17 +85,21 @@
         document.getElementById("popup").style.display = "block";
       });
 
+
       document.getElementsByClassName("close")[0].addEventListener("click", function() {
         document.getElementById("popup").style.display = "none";
       });
 
+
       document.getElementById("registrationForm").addEventListener("submit", function(event) {
-        event.preventDefault(); 
+        event.preventDefault();
+
 
       });
     });
   </script>
 </head>
+
 
 <body>
     <br><br>
@@ -98,7 +107,7 @@
     <div class="card-body">
       <button id="registerBtn" class="btn custom-btn" >
         <span data-feather="plus"></span>
-        Agregar nueva planta
+        Nueva planta
       </button>
         <table class="table table-striped" id="">
             <thead>
@@ -106,63 +115,59 @@
                     <th>ID</th>
                     <th>Nombre de la Planta</th>
                     <th>Descripción</th>
-                    <th>Imagen</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
+              {% for plant in plants_data %}
               <tr>
-                  <td>.</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{ plant[0] }}</td>
+                  <td>{{ plant[1] }}</td>
+                  <td>{{ plant[2] }}</td>
                   <td>
-                      <form action="" method="post">
-                          <button type="submit" onclick="return confirm('¿Desea borrar la Planta?');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> <span data-feather="trash-2"></span> De baja
-                          </button>
-                      </form>
-                      <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> <span data-feather="edit-3"></span> Actualizar</button> 
-                            </form>
+                    <form action="/plantas/delete/{{ plant[0] }}" method="post" onsubmit="return confirm('Deseas dar de baja esta planta?');">
+                      <button type="submit" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true">
+                        <span data-feather="trash-2"></span> Dar de baja
+                      </button>
+                    </form>
+                  <a href="/plantas/update/{{ plant[0] }}" class="btn btn-primary" aria-hidden="true">
+                    <span data-feather="edit-3"></span> Actualizar
+                  </a>
                         </div>
                     </div>
-                    
                       </div>
-
                       </div>
-
                   </td>
-                  
+                   {% endfor %}
               </tr>
             </tbody>
         </table>
 
+
   <div id="popup" class="popup">
     <div class="popup-content">
-      
+     
         <div class="modal-header">
+          <h4 class="modal-title text-center" id="exampleModalLabel">Registro de Planta</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title text-center" id="exampleModalLabel">Registro de Planta</h4>
+
+
         </div>
         <div class="modal-body">
-          <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="">
+          <form method="POST" class="shadow rounded py-3 px-4"  action="/plantas" margin: auto; width: 420px;">
          
             <div class="form-group">
               <font for="name" color="black">Nombre de la planta :</font>
-              <input type="text" class="form-control" name="nameplanta" value="">
+              <input type="text" class="form-control" name="nombre_planta" value="">
             </div>
-      
+     
             <div class="form-group">
               <font for="name" color="black">Descripción de la planta :</font>
-              <input type="text" class="form-control" name="descripcion" value="">
-            </div>
-      
-            <div class="input-group mb-3">
-              <input type="image" class="form-control" id="inputGroupFile02">
-              <label class="input-group-text" for="inputGroupFile02">Upload</label>
-            </div>
-          <br>
-            <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>
-          
+              <input type="text" class="form-control" name="descripcion_planta" value="">
+</div>
+    
+<br<><br>
+            <center><button type="submit"  class="btn custom-btn" value=""> Registrar</button></center>
         </form>
     </div>
 </div>
@@ -170,7 +175,11 @@
 </div>
 </html>
 </main>
-
 {% endblock %}
+
+
+
+
+
 
 

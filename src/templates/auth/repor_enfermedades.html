@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+
+ 
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+    <h1 class="h2">Reporte de enfermedades</h1>
+  </div>
+  <form id="myForm" name="dates" action="" method="post" class="shadow-white rounded py-3 px-4">
+    <div class="row">
+        <div class="col-3 col-md-2">
+            <label for="start_date"> Fecha inicio</label><br>
+            <input type="date" name="start_date" id="start_date" class="form-group">
+        </div>
+        <div class="col-3 col-md-2">
+            <label for="end_date">Fecha final</label><br>
+            <input type="date" name="end_date" id="end_date" class="form-group">
+        </div>
+        <div class="col-3 col-md-2">
+            <label for="submit"></label><br>
+            <button type="submit" class="btn btn-dark"><i class="fa fa-search"></i></button>
+        </div>
+    </div>
+</form>
+
+{% if graph_file_name %}
+        <center>
+            <font face="Comic Sans MS,arial,verdana" font color="#49c100">Diseases from {{ request.form.start_date }} to {{ request.form.end_date }}</font>
+        </center><br>
+        <div style="width: 100 !important; height: 100 !important;">
+          
+          <img src="{{ url_for('static', filename=graph_file_name) }}" alt="Disease Records Plot">
+   
+        </div>
+        {% endif %}
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

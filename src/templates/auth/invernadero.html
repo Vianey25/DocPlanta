@@ -19,7 +19,7 @@
   </div>
 <html>
 <head>
-  <title>Temperatura y Humedad</title>
+  <title>Invernaderos</title>
   <style>
     .popup {
       display: none;
@@ -76,6 +76,19 @@
       color: white;
       cursor: pointer;
     }
+
+    .table-container {
+    width: 40%; 
+    padding-left: 20px;
+  }
+
+ 
+  @media (max-width: 767px) {
+    .table-container {
+      width: 100%;
+      padding-left: 0;
+    }
+  }
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -92,119 +105,113 @@
 
       });
     });
-
-    //document.ready(function() {
-        // Handle temperature form submission
-        //("#temperatureForm").submit(function(event) {
-         // event.preventDefault();
-         // var temperatureValue = $("#temperatureInput").val();
-          //("#temperatureValue").text(temperatureValue + "°C");
-          //saveTemperatureToDatabase(temperatureValue);
-        //});
-  
-        // Handle humidity form submission
-       // ("#humidityForm").submit(function(event) {
-         // event.preventDefault();
-          //var humidityValue = $("#humidityInput").val();
-          //("#humidityValue").text(humidityValue + "%");
-          //saveHumidityToDatabase(humidityValue);
-        //});
-  
-        // Function to save temperature to the database
-        //function saveTemperatureToDatabase(temperature) {
-          // Perform an AJAX request to send temperature data to the server
-          //$.ajax({
-            //type: "POST",
-            //url: "", // Replace with your server-side script URL
-            //data: { temperature: temperature },
-            //success: function(response) {
-              //console.log("Temperature saved to the database.");
-            //},
-            //error: function(error) {
-              //console.error("Error saving temperature to the database:", error);
-            //}
-          //});
-        //}
-  
-        // Function to save humidity to the database
-        //function saveHumidityToDatabase(humidity) {
-          // Perform an AJAX request to send humidity data to
   </script>
 </head>
 <body>
-    <br><br>
-  <button id="registerBtn" class="btn custom-btn">
+    <br>
+  <button id="registerBtn"  id="add-button" class="btn custom-btn">
     <span data-feather="plus"></span>
     Agregar Invernadero</button>
-        <table class="table" id="">
-            <thead>
-                <tr>
-                    <th>Invernaderos</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-              <tr>
-                  <td></td>
-                  <td>
-                    <!-- <form action="" method="post">
-                          <button type="submit" onclick="return confirm('¿Desea dar de baja este invernadero');" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true"> De baja
-                          </button>
-                      </form>
-                      <button type="button" class="fa fa-refresh btn btn-warning" data-toggle="modal" data-target="#updateModal"> Actualizar</button>  
-                            </form>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-                  </td>
-              </tr>
-            </tbody> -->
-        </table>
-<br><br><br>
+<br>
+<div class="row">
+  <div class="col-md-3">
+     <!-- Table container -->
+     <div class="table-container">
+        <table class="table" id="greenhouse-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inver in inver_data %}
+        <tr>
+          <td>{{ inver[1] }}</td>
+          <td>
+            <a href="/temperatura-humedad" class="btn btn-info" aria-hidden="true">
+              <span data-feather="thermometer"></span> 
+            </a><br>
+            <form action="/invernadero/delete/{{ inver[0] }}" method="post" onsubmit="return confirm('Deseas dar de baja este invernadero?');">
+              <button type="submit" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true">
+                <span data-feather="trash-2"></span> 
+              </button>
+            </form>
+            <a href="/invernadero/update/{{ inver[0] }}" class="btn btn-primary" aria-hidden="true">
+              <span data-feather="edit-3"></span> 
+            </a>
+
+        </td>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+      </div>
+      </div>
+      
+
+      <div class="col-md-8">
+        <!-- Card container -->
+        <div class="card my-2">
+           <div class="card-header">
+              Instrucciones
+           </div>
+           <div class="card-body">
+              <!-- Add your card content here -->
+              <p>En este apartado podras agregar tus invernaderos:</p>
+              <p>Primeramente podras registrar invernaderos dando clic en el boton verde "Agregar invernadero".</p>
+              <p>Al dar clic en el boton azul cielo podras observar la temperatura y humedad en tiempo real de tu invernadero.</p>
+              <p>Al dar clic en el boton rojo podras dar de baja un invernadero( al darlo de baja las plantas asignadas no se eliminaran).</p>
+              <p>Al dar clic en el boton azul marino podras editar la información de tu invernadero.</p>
+           </div>
+        </div>
+     </div>
+  </div>
+
 
   <div id="popup" class="popup">
     <div class="popup-content">
       
         <div class="modal-header">
+          <h4 class="modal-title text-center" id="exampleModalLabel">Registro de Invernaderos</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title text-center" id="exampleModalLabel">Registro de Invernaderos</h4>
+           
         </div>
         <div class="modal-body">
-          <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="">
+          <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="/invernadero">
          
             <div class="form-group">
                 <font for="name" color="black">Nombre del invernadero:</font>
-                <input type="text" class="form-control" name="nameplanta" value="">
+                <input type="text" class="form-control" name="nombre_invernadero" value="">
               </div>
               <div class="form-group">
                   <label for="exampleFormControlSelect1">Selecciona la planta</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                  </select>
+                  <select class="form-control" name="id">
+                    <option value="">Selecciona la planta</option>
+                    {% for plant in plants_data %}
+                        <option value="{{ plant[0] }}">{{ plant[1] }}</option>
+                    {% endfor %}
+                </select>
                 </div>
                 <div class="form-group">
                     <label for="temperatureInput">Temperatura Maxima</label>
-                    <input type="text" class="form-control" id="temperatureInput" placeholder="Enter temperature">
+                    <input type="text" class="form-control" name="tem_max" placeholder="ingresa la temperatura Maxima">
                   </div>
 
                   <div class="form-group">
                     <label for="temperatureInput">Temperatura Minima</label>
-                    <input type="text" class="form-control" id="temperatureInput" placeholder="Enter temperature">
+                    <input type="text" class="form-control" name="tem_min" placeholder="ingresa la temperatura Minima">
                   </div>
 
                   <div class="form-group">
                     <label for="humidityInput">Humedad Maxima</label>
-                    <input type="text" class="form-control" id="humidityInput" placeholder="Enter humidity">
+                    <input type="text" class="form-control" name="hum_max" placeholder="ingresa la humedad Maxima">
                   </div>
 
                   <div class="form-group">
                     <label for="humidityInput">Humedad Minima</label>
-                    <input type="text" class="form-control" id="humidityInput" placeholder="Enter humidity">
+                    <input type="text" class="form-control" name="hum_min" placeholder="ingresa la humedad Minima">
                   </div>
 
               <div class="form-group">
@@ -220,6 +227,10 @@
 </body>
 </html>
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 {% endblock %}
 
 {% block footer %}{% endblock %}
