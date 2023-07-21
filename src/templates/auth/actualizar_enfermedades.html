@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+{% block content %}
+<style>
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .custom-btn {
+      background-color: #4CAF50;
+      color: #fff;
+  }
+
+
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+<main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+    <h1 class="h2">Actualización de Planta</h1>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        <form method="POST" class="shadow rounded py-3 px-4" style="margin: auto; width: 420px;" action="/enfermedades/update/{{ enfer_data[0] }}">
+         
+            <div class="form-group">
+                <font for="name" color="black">Nombre de la Enfermedad :</font>
+                <input type="text" class="form-control" name="nombre_enfermedad" value="{{ enfer_data[1] }}">
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Planta</label>
+                <select class="form-control" name="id"  >
+                    <option >Selecciona la planta</option>
+                    {% for plant in plants_data %}
+                        <option value="{{ plant[0] }}" {% if plant[0] == enfer_data['id_planta'] %}selected{% endif %}>{{ plant[1] }}</option>
+
+                    {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-group">
+            </center>
+                <label for="descripcion_planta">Descripción de la enfermedad:</label>
+                <input type="text" class="form-control" name="descripcion_enfermedad" value="{{ enfer_data[3] }}">
+              </div>
+            </center>
+            <br>
+              <center><button type="submit"  class="btn custom-btn" > Actualizar</button></center>
+            
+          </form>
+    </div>
+</main>
+{% endblock %}
+
+

@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-
-
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
@@ -10,30 +8,98 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
-<!DOCTYPE html>
 
 {% block content %}
 <main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-    <h1 class="h2">Cursos</h1>
-  </div>
-<html>
-<head>
-  <title>Mis plantas</title>
-  <style>
+   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+     <h1 class="h2">Cursos</h1>
+   </div>
+   <br>
+   <div class="row">
+    <div class="col-md-5">
+      <div class="gallery">
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=SR4zm0s1Ncg">
+      <a href="https://www.youtube.com/watch?v=SR4zm0s1Ncg">
+        <img src="https://img.youtube.com/vi/SR4zm0s1Ncg/mqdefault.jpg" alt="Video Thumbnail">
+      </a>
+    </div>
+     <br>
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=_KRdbOvg3fA">
+      <a href="https://www.youtube.com/watch?v=_KRdbOvg3fA">
+      <img src="https://img.youtube.com/vi/_KRdbOvg3fA/mqdefault.jpg" >
+    </a>
+     </div><br>
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=jQuHxNINW40">
+      <a href="https://www.youtube.com/watch?v=_KRdbOvg3fA">
+      <img src="https://img.youtube.com/vi/jQuHxNINW40/mqdefault.jpg" ></a>
+     </div><br>
+     </div>
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=_epP5Bdjizg">
+      <a href="https://www.youtube.com/watch?v=_epP5Bdjizg">
+      <img src="https://img.youtube.com/vi/_epP5Bdjizg/mqdefault.jpg" ></a>
+     </div><br>
+    </div>
+    <div class="col-md-5">
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=mtBpJs8hFcQ">
+      <a href="https://www.youtube.com/watch?v=mtBpJs8hFcQ">
+      <img src="https://img.youtube.com/vi/mtBpJs8hFcQ/mqdefault.jpg" ></a>
+     </div><br>
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=LTFd-99Om5Y">
+      <a href="https://www.youtube.com/watch?v=LTFd-99Om5Y">
+      <img src="https://img.youtube.com/vi/LTFd-99Om5Y/mqdefault.jpg" ></a>
+     </div><br>
+     
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=G-Pt-snswII">
+      <a href="https://www.youtube.com/watch?v=G-Pt-snswII">
+      <img src="https://img.youtube.com/vi/G-Pt-snswII/mqdefault.jpg" ></a>
+     </div><br>
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=njyRG9oYJgo">
+      <a href="https://www.youtube.com/watch?v=njyRG9oYJgo">
+      <img src="https://img.youtube.com/vi/njyRG9oYJgo/mqdefault.jpg" ></a>
+     </div><br>
+     </div>
+     <div class="video" data-video-id="https://www.youtube.com/watch?v=dfdq63Ovq1I">
+      <a href="https://www.youtube.com/watch?v=dfdq63Ovq1I">
+      <img src="https://img.youtube.com/vi/dfdq63Ovq1I/mqdefault.jpg" ></a>
+     </div>
+   </div>
+   
 
-  </style>
-  <script>
-    </script>
-<head>
-</head>
-
-<body>
-
-</body>
-</html>
 </main>
+<script>
+  $(document).ready(function() {
+     const videos = [
+        'https://www.youtube.com/watch?v=SR4zm0s1Ncg',
+        'https://www.youtube.com/watch?v=_KRdbOvg3fA',
+        // Add other video URLs here
+     ];
 
+     const gallery = $('.gallery');
+
+     videos.forEach((videoUrl) => {
+        const videoId = extractVideoId(videoUrl);
+        const videoThumbnail = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+
+        const videoDiv = $('<div>').addClass('video').attr('data-video-id', videoId);
+        const thumbnailImg = $('<img>').attr({ src: videoThumbnail, alt: 'Video Thumbnail' });
+
+        videoDiv.append(thumbnailImg);
+        gallery.append(videoDiv);
+     });
+
+     function extractVideoId(url) {
+        const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = url.match(regExp);
+        return match? match[1] : null;
+     }
+
+     // Redirect to video on click
+     $(document).on('click', '.video img', function() {
+        const videoId = $(this).parent().data('video-id');
+        if (videoId) {
+           window.location.href = `https://www.youtube.com/watch?v=${videoId}`;
+        }
+     });
+  });
+</script>
 {% endblock %}
-
-

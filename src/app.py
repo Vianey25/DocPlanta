@@ -6,6 +6,25 @@ from flask_mysqldb import MySQL
 from config import config
 import bcrypt
 
+import matplotlib.pyplot as plt
+
+
+from models.modeluser import ModelUser
+
+from models.entities.user import User
+
+from flask_sqlalchemy import SQLAlchemy
+
+from werkzeug.utils import secure_filename
+import os
+
+app = Flask(__name__, static_url_path='/static')
+
+
+
+db = MySQL(app)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 db = MySQL(app)
 
