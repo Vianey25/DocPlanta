@@ -1,3 +1,6 @@
+from keras.models import load_model
+from PIL import Image, ImageOps
+import numpy as np
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
 from flask_mail import Mail, Message
@@ -5,6 +8,7 @@ import random
 from flask_mysqldb import MySQL
 from config import config
 import bcrypt
+import os 
 
 app = Flask(__name__)
 db = MySQL(app)
@@ -33,6 +37,12 @@ def login_required(f):
 def generate_otp():
     return str(random.randint(100000, 999999))
 
+# Load the model
+model = load_model("keras_model.h5", compile=False)
+
+# Load the labels
+class_names = open("labels.txt", "r").readlines()
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     session.clear()
@@ -50,15 +60,51 @@ def login():
         if account and bcrypt.checkpw(password.encode('utf-8'), account[2].encode('utf-8')):
             session['logeado'] = True
             session['id'] = account[0]
-            return render_template('auth/home.html')
+            return redirect(url_for('home'))
         else:
             flash('Email o contraseña inválidos', 'error')
             return render_template('auth/iniciar.html')
 
-@app.route('/home')
-@login_required  # Aplicar el decorador login_required a la ruta
+
+@app.route('/home', methods=['GET', 'POST'])
+@login_required
 def home():
-    return render_template('auth/home.html')
+    prediction_result = None
+
+    if request.method == 'POST':
+        # Check if an image was uploaded
+        if 'image' in request.files:
+            image_file = request.files['image']
+            if image_file.filename != '':
+                # Save the uploaded image to a temporary location
+                image_path = "tmp_image.jpeg"
+                image_file.save(image_path)
+
+                # Image processing and prediction
+                image = Image.open(image_path).convert("RGB")
+                size = (224, 224)
+                image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
+                image_array = np.asarray(image)
+                normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
+                data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+                data[0] = normalized_image_array
+                prediction = model.predict(data)
+                index = np.argmax(prediction)
+                class_name = class_names[index]
+                confidence_score = prediction[0][index]
+
+                # Print prediction and confidence score
+                print( class_name[2:], end="")
+                print("Confidence Score:", confidence_score)
+
+                # Determine if the prediction indicates "enfermo" or "sano"
+                prediction_result = class_name[2:]
+
+                # Delete the temporary image file
+                os.remove(image_path)
+
+    return render_template('auth/home.html', prediction_result=prediction_result)
+
 
 @app.route('/registro')
 def register1():
@@ -89,7 +135,7 @@ def reset_password():
             session['reset_email'] = email
             session['reset_otp'] = otp
 
-            msg = Message('Reset Your Password', recipients=[email])
+            msg = Message('Restablecer su contraseña', recipients=[email])
             msg.body = f'Your OTP is: {otp}'
             mail.send(msg)
 
@@ -103,7 +149,7 @@ def reset_password():
 @app.route('/verify-otp', methods=['GET', 'POST'])
 def verify_otp():
     if 'reset_email' not in session or 'reset_otp' not in session:
-        flash('OTP verification failed', 'error')
+        flash('OTP verification fallo', 'error')
         return redirect(url_for('reset_password'))
 
     if request.method == 'POST' and 'otp' in request.form:
@@ -173,3 +219,10 @@ def cursos():
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.run(debug=True, port=5001)
+
+
+
+
+
+
+

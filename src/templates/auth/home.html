@@ -78,8 +78,17 @@
 </head>
 
 <body>
- 
-</body>
+
+  <form method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*">
+      <input type="submit" value="Cargar y procesar imagen">
+  </form>
+  
+  {% if prediction_result %}
+      <h2>Resultado: {{ prediction_result }}</h2>
+  {% endif %}
+   
+  </body>
 </div>
 </main>
 
