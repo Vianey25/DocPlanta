@@ -10,14 +10,12 @@ from config import config
 import bcrypt
 import os 
 
-import matplotlib.pyplot as plt
+
 
 
 from models.modeluser import ModelUser
 
 from models.entities.user import User
-
-from flask_sqlalchemy import SQLAlchemy
 
 from werkzeug.utils import secure_filename
 import os
