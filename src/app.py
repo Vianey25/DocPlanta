@@ -106,6 +106,7 @@ def home():
                 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
                 data[0] = normalized_image_array
                 prediction = model.predict(data)
+                
                 index = np.argmax(prediction)
                 class_name = class_names[index]
                 confidence_score = prediction[0][index]
@@ -116,6 +117,8 @@ def home():
 
                 # Determine if the prediction indicates "enfermo" or "sano"
                 prediction_result = class_name[2:]
+
+                print(prediction_result)
 
                 # Delete the temporary image file
                 os.remove(image_path)

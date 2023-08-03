@@ -76,17 +76,19 @@
   </style>
  
 </head>
-
-<body>
+<div>
+ <body>
 
   <form method="post" enctype="multipart/form-data">
       <input type="file" name="image" accept="image/*">
       <input type="submit" value="Cargar y procesar imagen">
   </form>
   
+  <div style="position: relative; top: 30px; left: -110px;">
   {% if prediction_result %}
-      <h2>Resultado: {{ prediction_result }}</h2>
+    <h2>Resultado: {{ prediction_result }}</h2>
   {% endif %}
+  </div>
    
   </body>
 </div>
@@ -96,4 +98,4 @@
 
 {% endblock %}
 
-{% block footer %}{% endblock %}
+
