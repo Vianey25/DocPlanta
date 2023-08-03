@@ -1,1 +1,7 @@
  pip install flask flask-login flask-mysqldb flask-WTF
+
+pip install Pillow
+
+pip install bcrypt
+
+pip install Flask-Mail
