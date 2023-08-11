@@ -1,2 +1,8 @@
-0 sano
-1 enfermo
+0 jitomate_sano
+1 jitomate_enfermo
+2 papa_sana
+3 papa_enferma
+4 pepino_sano
+5 pepino_enfermo
+6 fresa_sana
+7 fresa_enferma
