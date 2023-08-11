@@ -11,8 +11,6 @@ import bcrypt
 import os 
 
 
-
-
 from models.modeluser import ModelUser
 
 from models.entities.user import User
