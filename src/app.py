@@ -81,6 +81,11 @@ def login():
             return render_template('auth/iniciar.html')
 
 
+recomendaciones = {
+    "jitomate_sano": ["Recomendación 1 para plantas sanas...", "Recomendación 2 para plantas sanas...", ...],
+    "jitomate_enfermo": ["Recomendación 1 para plantas enfermas...", "Recomendación 2 para plantas enfermas...", ...],
+}
+
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -115,7 +120,6 @@ def home():
 
                 # Determine if the prediction indicates "enfermo" or "sano"
                 prediction_result = class_name[2:]
-
 
                 # Delete the temporary image file
                 os.remove(image_path)
