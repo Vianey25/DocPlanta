@@ -5,3 +5,5 @@ pip install Pillow
 pip install bcrypt
 
 pip install Flask-Mail
+
+pip install Flask-Bcrypt
