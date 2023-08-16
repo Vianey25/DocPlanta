@@ -84,7 +84,7 @@ def login():
         if account and bcrypt.checkpw(password.encode('utf-8'), account[2].encode('utf-8')):
             session['logeado'] = True
             session['id'] = account[0]
-            return render_template('auth/home.html')
+            return redirect(url_for('home'))
         else:
             flash('Email o contraseña inválidos', 'error')
             return render_template('auth/iniciar.html')
