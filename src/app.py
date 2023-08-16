@@ -26,6 +26,8 @@ import numpy as np
 import bcrypt
 from werkzeug.utils import secure_filename
 import os
+from PIL import Image, ImageOps
+import numpy as np
 
 
 app = Flask(__name__, static_url_path='/static')
@@ -58,6 +60,13 @@ def login_required(f):
 def generate_otp():
     return str(random.randint(100000, 999999))
 
+
+# Load the model
+model = load_model("keras_model.h5", compile=False)
+
+# Load the labels
+class_names = open("labels.txt", "r").readlines()
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     session.clear()
@@ -80,10 +89,47 @@ def login():
             flash('Email o contraseña inválidos', 'error')
             return render_template('auth/iniciar.html')
 
-@app.route('/home')
-@login_required  # Aplicar el decorador login_required a la ruta
+@app.route('/home', methods=['GET', 'POST'])
+@login_required
 def home():
-    return render_template('auth/home.html')
+    prediction_result = None
+
+    if request.method == 'POST':
+        # Check if an image was uploaded
+        if 'image' in request.files:
+            image_file = request.files['image']
+            if image_file.filename != '':
+                # Save the uploaded image to a temporary location
+                image_path = "tmp_image.jpeg"
+                image_file.save(image_path)
+
+                # Image processing and prediction
+                image = Image.open(image_path).convert("RGB")
+                size = (224, 224)
+                image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
+                image_array = np.asarray(image)
+                normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
+                data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+                data[0] = normalized_image_array
+                prediction = model.predict(data)
+                
+                index = np.argmax(prediction)
+                class_name = class_names[index]
+                confidence_score = prediction[0][index]
+
+                # Print prediction and confidence score
+                print( class_name[2:], end="")
+
+
+                # Determine if the prediction indicates "enfermo" or "sano"
+                prediction_result = class_name[2:]
+
+
+                # Delete the temporary image file
+                os.remove(image_path)
+
+    return render_template('auth/home.html', prediction_result=prediction_result)
+
 
 @app.route('/registro')
 def register1():
