@@ -83,31 +83,9 @@
         <input type="file" name="image" accept="image/*">
         <input type="submit" value="Cargar y procesar imagen">
     </form>
-    
+
     {% if prediction_result %}
-        <h2>Resultado: {{ prediction_result }}</h2>
-        {% if prediction_result == 1 %}
-            <h3>Recomendaciones para plantas enfermas:</h3>
-            <ul>
-                <li>Aislar la planta: Si sospechas de una enfermedad o infestación de plagas, aísla la planta de tomate afectada de las demás para evitar una mayor propagación.</li>
-                <li>Poda de las partes afectadas: corta las hojas, ramas o frutas afectadas. Esto ayuda a prevenir la propagación de la enfermedad y permite que la planta concentre su energía en un crecimiento saludable.</li>
-                <li>Riego: Asegúrate de seguir prácticas adecuadas de riego. El riego excesivo puede provocar pudrición de las raíces, mientras que el riego insuficiente puede causar estrés en la planta. Mantén una humedad del suelo constante, regando profundamente pero de manera poco frecuente y permitiendo que la capa superior de suelo se seque entre riegos.</li>
-                <li>Fertilización: Usa un fertilizante equilibrado formulado específicamente para tomates o vegetales. Evita fertilizar en exceso, ya que los nutrientes en exceso pueden dañar la planta. Sigue la dosis y el horario recomendados.</li>
-                <li>Acolchado: Aplica acolchado orgánico alrededor de la base de la planta de tomate para conservar la humedad, regular la temperatura del suelo y evitar que las enfermedades transmitidas por el suelo se propaguen a la vegetación.</li>
-                <li>Luz solar: Los tomates requieren mucha luz solar. Asegúrate de que la planta reciba al menos 6-8 horas de luz solar directa al día.</li>
-                <li>Soporte: Si la planta de tomate es de tipo trepador, proporciona un soporte adecuado para evitar el estrés en los tallos y las ramas.</li>
-            </ul>
-            <img src="{{ url_for('static', filename='img/advertencia.jpg') }}" style="height: 200px;">
-        {% else %}
-            <h3>Recomendaciones para plantas sanas:</h3>
-            <ul>
-                <li>Mantener un adecuado riego y asegurarse de que la planta reciba suficiente agua.</li>
-                <li>Fertilizar según las indicaciones con un fertilizante equilibrado formulado para tomates o vegetales.</li>
-                <li>Proporcionar al menos 6-8 horas de luz solar directa al día.</li>
-                <li>Proporcionar soporte adecuado si la planta es de tipo trepador.</li>
-            </ul>
-            <img src="{{ url_for('static', filename='img/sano.jpg') }}" style="height: 200px;">
-        {% endif %}
+      <h2>Resultado: {{ prediction_result }}</h2>
     {% endif %}
      
     </body>

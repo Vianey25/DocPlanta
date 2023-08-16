@@ -111,12 +111,11 @@ def home():
 
                 # Print prediction and confidence score
                 print( class_name[2:], end="")
-                print("Confidence Score:", confidence_score)
+
 
                 # Determine if the prediction indicates "enfermo" or "sano"
                 prediction_result = class_name[2:]
 
-                print(prediction_result)
 
                 # Delete the temporary image file
                 os.remove(image_path)
