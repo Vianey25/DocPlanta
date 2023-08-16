@@ -20,7 +20,10 @@
 
   <div class="custom-btn-container">
     <a href="/reporte_enfer" class="btn btn-secondary" aria-hidden="true">
-      <span data-feather="file"></span> Generar reporte
+
+      <span data-feather="file"></span> Grafica
+
+
     </a>
   </div>
   <br>
@@ -88,6 +91,14 @@
     left: 80;
     padding: 10px; /* Optional: Add some padding to adjust the position */
   }
+
+  .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Add margin if needed */
+}
+
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -105,6 +116,25 @@
       });
     });
   </script>
+  <script>
+    // Get the current date in YYYY-MM-DD format
+    function getCurrentDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Update the record_data input field with the current date
+    document.addEventListener("DOMContentLoaded", function () {
+        const recordDataInput = document.getElementById("record_data");
+        if (recordDataInput) {
+            recordDataInput.value = getCurrentDate();
+        }
+    });
+</script>
+
 </head>
 <body>
   <br><br>
@@ -120,6 +150,7 @@
                     <th>ID</th>
                     <th>Nombre de la enfermedad</th>
                     <th>Planta</th>
+                    <th>Número de plantas enfermas</th>
                     <th>Descripción</th>
                     <th>Acciones</th>
                 </tr>
@@ -131,6 +162,8 @@
                   <td>{{ enfer[1] }}</td>
                   <td>{{ enfer[2] }}</td>
                   <td>{{ enfer[3] }}</td>
+                  <td>{{ enfer[4] }}</td>
+
                   <td>
                     <form action="/enfermedades/delete/{{ enfer[0] }}" method="post" onsubmit="return confirm('Deseas dar de baja esta planta?');">
                       <button type="submit" class="btn btn-danger fa fa-eraser btn-md mb-1" aria-hidden="true">
@@ -153,6 +186,11 @@
             </tbody>
         </table>
 
+        <div class="pagination">
+          <button id="prevPageBtn" class="btn custom-btn" disabled>&lt;</button>
+          <button id="nextPageBtn" class="btn custom-btn">&gt;</button>
+        </div>
+          
 
   <div id="popup" class="popup">
     <div class="popup-content">
@@ -178,11 +216,19 @@
                     {% endfor %}
                 </select>
               </div>
+
+              <div class="form-group">
+                <font for="name" color="black">Numero de plantas enfermas :</font>
+                <input type="text" class="form-control" name="numero_plantas" value="">
+              </div>
+
               <div class="form-group">
                 <font for="name" color="black">Descripción de la enfermedad :</font>
                 <input type="text" class="form-control" name="descripcion_enfermedad" value="">
               </div>
-        
+              
+              <input type="text" id="record_data" name="record_data" required>
+
             <br>
               <center><button type="submit"  class="btn custom-btn" value="Register"> Registrar</button></center>
             
@@ -196,6 +242,58 @@
 
 </html>
 </main>
+
+
+<script>
+
+  // Get references to elements
+  const table = document.querySelector('.table');
+  const prevPageBtn = document.getElementById('prevPageBtn');
+  const nextPageBtn = document.getElementById('nextPageBtn');
+  const rowsPerPage = 5;
+  let currentPage = 1;
+
+  // Function to update the table based on the current page
+  function updateTable() {
+    const rows = table.querySelectorAll('tbody tr');
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    rows.forEach((row, index) => {
+      if (index >= start && index < end) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = end >= rows.length;
+  }
+
+  // Event listeners for navigation buttons
+  prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      updateTable();
+    }
+  });
+
+  nextPageBtn.addEventListener('click', () => {
+    const rows = table.querySelectorAll('tbody tr');
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      updateTable();
+    }
+  });
+
+  // Initial table update
+  updateTable();
+
+
+</script>
+
 {% endblock %}
 
 

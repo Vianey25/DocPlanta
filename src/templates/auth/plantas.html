@@ -9,6 +9,7 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
@@ -32,7 +33,6 @@
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.4);
     }
-
 
     .popup-content {
       background-color: #fefefe;
@@ -78,6 +78,13 @@
       color: white;
       cursor: pointer;
     }
+    .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Add margin if needed */
+}
+
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -97,6 +104,7 @@
 
       });
     });
+
   </script>
 </head>
 
@@ -105,11 +113,16 @@
     <br><br>
   <div class="card">
     <div class="card-body">
+      <form action="{{ url_for('plantas') }}" method="get">
+        <input id="buscarplanta" type="text" name="search" placeholder="">
+        <button id="searchBtn" type="submit" class="btn btn-primary">Search</button>
+      </form>      
+    
       <button id="registerBtn" class="btn custom-btn" >
         <span data-feather="plus"></span>
         Nueva planta
       </button>
-        <table class="table table-striped" id="">
+          <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -120,7 +133,7 @@
             </thead>
             <tbody>
               {% for plant in plants_data %}
-              <tr>
+              <tr data_nombre_planta="{{ plant[1] }}">
                   <td>{{ plant[0] }}</td>
                   <td>{{ plant[1] }}</td>
                   <td>{{ plant[2] }}</td>
@@ -142,7 +155,17 @@
               </tr>
             </tbody>
         </table>
-
+      
+        <div class="pagination">
+          <button id="prevPageBtn" class="btn custom-btn" disabled>&lt;</button>
+          <button id="nextPageBtn" class="btn custom-btn">&gt;</button>
+        </div>
+        <!--<div class="pagination"></div>  
+        <a id="prevPageBtn" class="btn custom-btn {% if page|default(1) == 1 %}disabled{% endif %}" href="{{ url_for('plantas', page=(page |default(1))-1, search=request.args.get('search', '')) }}">&lt;</a>
+        <a id="nextPageBtn" class="btn custom-btn" href="{{ url_for('plantas', page=(page|default(1))+1, search=request.args.get('search' , '')) }}">&gt;</a>
+    </div>
+    -->
+    
 
   <div id="popup" class="popup">
     <div class="popup-content">
@@ -175,6 +198,71 @@
 </div>
 </html>
 </main>
+
+<script>
+
+  // Get references to elements
+  const table = document.querySelector('.table');
+  const prevPageBtn = document.getElementById('prevPageBtn');
+  const nextPageBtn = document.getElementById('nextPageBtn');
+  const rowsPerPage = 5;
+  let currentPage = 1;
+
+  // Function to update the table based on the current page
+  function updateTable() {
+    const rows = table.querySelectorAll('tbody tr');
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    rows.forEach((row, index) => {
+      if (index >= start && index < end) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = end >= rows.length;
+  }
+
+  // Event listeners for navigation buttons
+  prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      updateTable();
+    }
+  });
+
+  nextPageBtn.addEventListener('click', () => {
+    const rows = table.querySelectorAll('tbody tr');
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      updateTable();
+    }
+  });
+
+  // Initial table update
+  updateTable();
+
+  //buscar 
+  $(document).ready(function () {
+  $('#searchBtn').on('click', function () {
+    var searchTerm = $('#buscarplanta').val().toLowerCase();
+    $('.table tbody tr').each(function () {
+      var data_nombre_planta = $(this).data('nombre_planta').toLowerCase();
+      
+      if (data_nombre_planta.includes(searchTerm)) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  });
+});
+
+</script>
 {% endblock %}
 
 

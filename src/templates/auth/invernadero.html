@@ -89,6 +89,15 @@
       padding-left: 0;
     }
   }
+
+
+  .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Add margin if needed */
+}
+
   </style>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -147,6 +156,12 @@
         {% endfor %}
       </tbody>
     </table>
+
+    <div class="pagination">
+      <button id="prevPageBtn" class="btn custom-btn" disabled>&lt;</button>
+      <button id="nextPageBtn" class="btn custom-btn">&gt;</button>
+    </div>
+
       </div>
       </div>
       
@@ -230,6 +245,55 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+
+  // Get references to elements
+  const table = document.querySelector('.table');
+  const prevPageBtn = document.getElementById('prevPageBtn');
+  const nextPageBtn = document.getElementById('nextPageBtn');
+  const rowsPerPage = 5;
+  let currentPage = 1;
+
+  // Function to update the table based on the current page
+  function updateTable() {
+    const rows = table.querySelectorAll('tbody tr');
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    rows.forEach((row, index) => {
+      if (index >= start && index < end) {
+        row.style.display = 'table-row';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = end >= rows.length;
+  }
+
+  // Event listeners for navigation buttons
+  prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      updateTable();
+    }
+  });
+
+  nextPageBtn.addEventListener('click', () => {
+    const rows = table.querySelectorAll('tbody tr');
+    const totalPages = Math.ceil(rows.length / rowsPerPage);
+    if (currentPage < totalPages) {
+      currentPage++;
+      updateTable();
+    }
+  });
+
+  // Initial table update
+  updateTable();
+
+
+</script>
 
 {% endblock %}
 
