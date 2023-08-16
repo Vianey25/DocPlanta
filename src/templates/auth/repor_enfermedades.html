@@ -6,11 +6,17 @@
 
  
 {% block content %}
+
+
 <main class="col-md-9 ms-sm-auto col-lg-11 px-md-4">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-    <h1 class="h2">Reporte de enfermedades</h1>
+    <h1 class="h2">Grafica de enfermedades</h1>
   </div>
+  <form id="myForm" name="dates" action="{{url_for('reporte_enfer') }}" method="post" class="shadow-white rounded py-3 px-4">
+
+
   <form id="myForm" name="dates" action="" method="post" class="shadow-white rounded py-3 px-4">
+
     <div class="row">
         <div class="col-3 col-md-2">
             <label for="start_date"> Fecha inicio</label><br>
@@ -22,10 +28,88 @@
         </div>
         <div class="col-3 col-md-2">
             <label for="submit"></label><br>
-            <button type="submit" class="btn btn-dark"><i class="fa fa-search"></i></button>
+
+            <button type="submit" class="btn btn-dark"><i class="fa fa-search"></i>Buscar</button>
         </div>
     </div>
 </form>
+<br>
+<form action="/generate_pdf" method="post" target="_blank">
+  <button type="submit">Generar PDF</button>
+</form>
+<br>
+
+
+<div class="chart-container">
+  <canvas id="barChart"></canvas>
+</div>
+<div class="custom-btn-container">
+  <br>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var graphData = {{ graph_data|safe|tojson}};
+  graphData = JSON.parse(graphData);
+  var ctx = document.getElementById('barChart').getContext('2d');
+  var barChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: graphData.labels,
+          datasets: [{
+              label: 'Número de plantas enfermas',
+              data: graphData.data,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+           scales: {
+               xAxes: [{
+                   ticks: {
+                       beginAtZero: true
+                   }
+               }],
+               yAxes: [{
+                   ticks: {
+                       beginAtZero: true
+                   }
+               }]
+           }
+       }
+   });
+   document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+    console.log('Form enviado');
+    var formData = new FormData(event.target)
+    // Convert form data to URL-encoded string
+    var params = new URLSearchParams(formData);
+
+    // Make a POST request to the Flask route
+    fetch('/reporte_enfer', {
+        method: 'POST',
+        body: params
+    })
+
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(graphData => {
+        console.log(graphData);
+        // Update chart data
+        barChart.data.labels = graphData.labels;
+        barChart.data.datasets[0].data = graphData.data;
+        barChart.update();
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+</script>
 
 {% if graph_file_name %}
         <center>
@@ -37,6 +121,7 @@
    
         </div>
         {% endif %}
+
 
 {% endblock %}
 
